@@ -1,0 +1,26 @@
+.timer {
+
+}
+
+.timer__controls {
+	.btn {
+		width: 40px;
+	}
+}
+
+.timer__controls {
+	display: flex;
+	justify-content: space-between;
+}
+
+.timer__decrease-group,
+.timer__increase-group {
+	display: flex;
+	width: 260px;
+
+	justify-content: space-between;
+}
+
+.timer__input {
+	width: 86px;
+}

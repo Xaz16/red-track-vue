@@ -1,0 +1,17 @@
+.log {
+	display: flex;
+}
+
+.log__time {
+	margin-right: 15px;
+	flex: 0 0 60px;
+}
+
+.log__comment {
+	margin-right: 10px;
+	flex: 0 1 488px;
+}
+
+.log__btn {
+	flex: 1 0 60px;;
+}

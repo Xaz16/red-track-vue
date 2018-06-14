@@ -1,0 +1,58 @@
+.heading-1 {
+	font: {
+		weight: bold;
+		size: 20px;
+	}
+
+	color: $main;
+}
+
+.nav-item {
+	font-size: 20px;
+	color: $main;
+	text-decoration: none;
+}
+
+.page-heading {
+	font: {
+		weight: 700;
+		size: 24px;
+	}
+}
+
+.task-heading {
+	font: {
+		size: 14px;
+		weight: 700;
+	}
+}
+
+.muted {
+	font: {
+		weight: 700;
+		size: 11px;
+	}
+	opacity: .67;
+}
+
+.link {
+	cursor: pointer;
+	color: $secondary-accent;
+	font: {
+		size: 11px;
+		weight: 700;
+	}
+
+	&:hover {
+		color: $dark-secondary-accent;
+	}
+}
+
+.large-timer {
+	font: {
+		weight: 700;
+		size: 25px;
+	}
+
+	color: $main;
+}

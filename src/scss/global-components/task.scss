@@ -1,0 +1,48 @@
+.task {
+
+}
+
+.task__detail {
+	max-width: 245px;
+
+	&.task__detail--wide {
+		flex: 0.8 0.6 245px;
+		max-width: unset;
+	}
+}
+
+.task__detail-heading {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-bottom: 0;
+	line-height: 1;
+}
+
+.task__detail-info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.task__controls-wrap {
+	display: flex;
+	width: 91px;
+	justify-content: space-between;
+	padding-bottom: 8px;
+	align-items: center;
+}
+
+.task__timer {
+	padding-bottom: 8px;
+	line-height: 1.1;
+}
+
+.task__control {
+	cursor: pointer;
+}
+
+.task__link {
+	margin-right: 10px;
+	display: inline-block;
+}

@@ -1,0 +1,25 @@
+.rt-input {
+	border: 1px solid $light-gray;
+	height: 28px;
+	background-color: $main;
+	padding: 5px;
+	border-radius: 3px;
+
+	&:focus {
+		outline: none;
+		border-color: #1ABC9C;
+	}
+
+	&::placeholder {
+		color: $dark;
+		font: {
+			family: 'Lato';
+			weight: 400;
+			size: 14px;
+		}
+	}
+}
+
+.rt-input--wide {
+	width: 100%;
+}

@@ -1,0 +1,54 @@
+html {
+	width: 700px;
+	height: 500px;
+}
+
+body {
+	margin: 0;
+	bottom: 0;
+	-webkit-font-smoothing: antialiased;
+	font: {
+		family: 'Lato';
+		weight: 400;
+	}
+	background-color: #fff;
+	color: $dark;
+	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+.w100 {
+	width: 100%;
+}
+
+.d-block {
+	display: block;
+}
+
+.mr-15 {
+	margin-right: 15px;
+}
+
+.mla {
+	margin-left: auto;
+}
+
+.mr-10 {
+	margin-right: 10px;
+}

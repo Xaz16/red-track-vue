@@ -1,0 +1,20 @@
+.auth {
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.auth__form {
+	width: 350px;
+}
+
+.auth__form-input {
+	margin-bottom: 15px;
+}
+
+.auth__btn {
+	width: 120px;
+	margin-top: 30px;
+	margin-left: auto;
+}

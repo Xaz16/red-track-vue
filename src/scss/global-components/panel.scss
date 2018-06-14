@@ -1,0 +1,29 @@
+.panel {
+	background: $dark;
+	margin-bottom: 15px;
+}
+
+.panel--opened {
+	.panel__body {
+		height: 56px;
+		padding: 15px;
+		visibility: visible;
+	}
+}
+
+.panel__head {
+	padding: 8px 15px 0;
+	height: 46px;
+	color: $main;
+	font-weight: 700;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+.panel__body {
+	background-color: $dark-bg;
+
+	visibility: hidden;
+	height: 0;
+}
