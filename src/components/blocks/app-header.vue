@@ -4,7 +4,7 @@
             <img class="logo__icon" src="/assets/logo-icon.svg" alt="">
             <h2 class="logo__heading heading-1">Red Track</h2>
         </div>
-        <nav class="navigation">
+        <nav class="navigation" v-if="allowNavigation">
             <router-link class="navigation__item" to="/timers" tag="div">
                 <a class="navigation__item-link nav-item">Timers</a>
             </router-link>
@@ -124,8 +124,15 @@
 
 <script>
   export default {
+    async beforeMount () {
+      const { user } = await window.storage.getInstance.get();
+
+      this.$data.allowNavigation = user && user.hasOwnProperty('id')
+    },
     data () {
-      return {};
+      return {
+        allowNavigation: false
+      };
     }
   };
 </script>
