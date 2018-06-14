@@ -23,3 +23,7 @@
 .rt-input--wide {
 	width: 100%;
 }
+
+.rt-input--invalid {
+	border-color: $accent;
+}

@@ -12,9 +12,17 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	border-radius: 3px;
+	border: none;
+	outline: none !important;
+	transition: background-color 250ms ease, opacity 250ms ease;
 
-	&:hover {
+
+	&:hover:not(:disabled) {
 		background-color: $dark-accent;
+	}
+
+	&:disabled {
+		opacity: .5;
 	}
 }
 

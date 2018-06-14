@@ -7,6 +7,8 @@
 
 .auth__form {
 	width: 350px;
+	flex-direction: column;
+	display: flex;
 }
 
 .auth__form-input {
@@ -15,6 +17,32 @@
 
 .auth__btn {
 	width: 120px;
-	margin-top: 30px;
 	margin-left: auto;
+}
+
+.messages {
+	min-height: 15px;
+	margin-bottom: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.messages__item {
+	margin-bottom: 0;
+}
+
+.auth__info {
+	position: absolute;
+	color: $light-gray;
+	bottom: 15px;
+	width: 100%;
+	white-space: nowrap;
+	left: 15px;
+	display: flex;
+
+	p {
+		margin: 0;
+		margin-left: 10px;
+	}
 }
