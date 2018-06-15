@@ -4,7 +4,7 @@
     </root>
 </template>
 <script>
-  import root from '../layout/root.vue';
+  import root from '../layout/popup.vue';
 
   export default {
     components: {

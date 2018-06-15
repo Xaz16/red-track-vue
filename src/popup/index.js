@@ -1,39 +1,49 @@
-import Vue       from 'vue';
-import VueRouter from 'vue-router';
-import VueForm   from 'vue-form';
+import Vue                  from 'vue';
+import VueRouter            from 'vue-router';
+import VueForm              from 'vue-form';
+import Vuex                 from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
-import App                           from './App.vue';
-import { Auth, Timers, Tasks, Logs } from '../components/pages';
-import Storage                       from '../Services/Storage';
-
-window.storage = new Storage();
+import App                                  from './App.vue';
+import Storage                              from '../Services/Storage';
+import Requester                            from '../Services/Requester';
+import { initialState, getters, mutations } from '../store';
+import { Auth, Logs, Tasks, Timers }        from '../components/pages';
+import { mainRouteHandler, redirectToAuth } from '../utils';
 
 Vue.use(VueRouter);
 Vue.use(VueForm);
+Vue.use(Vuex);
 Vue.config.productionTip = false;
 
-const redirectToAuth = async (to, from, next) => {
-  const {user} = await window.storage.getInstance.get('user');
-  if (user && user.hasOwnProperty('id')) {
-    next();
-  } else {
-    next('/auth');
+const init = (store) => {
+  const url = store.getters.url;
+  const key = store.getters.key;
+  console.log(store, store.getters.key, store.getters.url);
+  if (!url || !key) {
+    return store.commit('clear');
   }
+  window.requester = new Requester(key, url);
 };
+
+const store = new Vuex.Store({
+  state: initialState,
+  plugins: [createPersistedState({
+    storage: new Storage()
+  })],
+  mutations,
+  getters
+});
 
 const routes = [
   {
     path: '/',
-    beforeEnter: async (to, from, next) => {
-      const {lastRoute} = await window.storage.getInstance.get();
-      const navigateTo = lastRoute !== '/' ? lastRoute : '/auth';
-      next(navigateTo);
-    }
+    beforeEnter: (to, from, next) => mainRouteHandler(to, from, next, store)
   },
   {path: '/auth', component: Auth},
-  {path: '/timers', component: Timers, beforeEnter: redirectToAuth},
-  {path: '/tasks', component: Tasks, beforeEnter: redirectToAuth},
-  {path: '/logs', component: Logs, beforeEnter: redirectToAuth}
+  {path: '/timers', component: Timers, beforeEnter: (to, from, next) => redirectToAuth(to, from, next, store)},
+  {path: '/tasks', component: Tasks, beforeEnter: (to, from, next) => redirectToAuth(to, from, next, store)},
+  {path: '/logs', component: Logs, beforeEnter: (to, from, next) => redirectToAuth(to, from, next, store)}
 ];
 
 const router = new VueRouter({
@@ -41,12 +51,14 @@ const router = new VueRouter({
 });
 
 router.afterEach((to) => {
-  window.storage.getInstance.set({lastRoute: to.fullPath});
-  document.querySelector('html').setAttribute('style', 'width:700px;height:500px')
+  store.commit('lastRoute', to.fullPath);
+  document.querySelector('html').setAttribute('style', 'width:700px;height:500px');
 });
 
-/* eslint-disable no-new */
 new Vue({
   router,
+  store,
   render: f => f(App)
 }).$mount('#root');
+
+init(store);

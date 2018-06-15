@@ -7,17 +7,15 @@
     </div>
 </template>
 <script>
-  import appHeader from '../blocks/app-header.vue';
+  import appHeader          from '../blocks/Header.vue';
+  import { makeTransition } from '../../utils';
 
   export default {
     components: {
       appHeader
     },
     mounted () {
-      const els = Array.from(this.$el.querySelectorAll('[routing-animation]'));
-      els.forEach((el, index) => {
-        setTimeout(() => el.classList.add('is-preparedRoutingAnimation'), 50 * index);
-      });
+      makeTransition();
     },
     data () {
       return {};
