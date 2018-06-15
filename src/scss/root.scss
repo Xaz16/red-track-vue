@@ -12,6 +12,8 @@
 @import "global-components/task";
 @import "global-components/timer";
 
+@import "~vue2-animate/src/sass/vue2-animate";
+
 #root {
   height: 100%;
   display: flex;

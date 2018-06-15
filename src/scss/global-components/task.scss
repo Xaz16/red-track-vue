@@ -2,6 +2,11 @@
 
 }
 
+.task__id {
+	line-height: 1;
+	margin-bottom: 7px;
+}
+
 .task__detail {
 	max-width: 245px;
 
@@ -16,7 +21,7 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	margin-bottom: 0;
+	margin-bottom: 4px;
 	line-height: 1;
 }
 
@@ -45,4 +50,9 @@
 .task__link {
 	margin-right: 10px;
 	display: inline-block;
+	line-height: 1;
+}
+
+.task__links-wrap {
+	line-height: 1;
 }
