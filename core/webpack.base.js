@@ -7,14 +7,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 let resolve = dir => path.join(__dirname, '..', 'src', dir)
 module.exports = {
   entry: {
-    tab: resolve('./tab'),
+    // tab: resolve('./extFeatures/tab'),
     popup: resolve('./popup'),
-    options: resolve('./options'),
-    content: resolve('./content'),
-    devtools: resolve('./devtools'),
-    background: resolve('./backend'),
-    panel: resolve('./devtools/panel'),
-    inject: resolve('./content/inject'),
+    // options: resolve('./extFeatures/options'),
+    // content: resolve('./extFeatures/content'),
+    // devtools: resolve('./extFeatures/devtools'),
+    // background: resolve('./extFeatures/backend'),
+    // panel: resolve('./extFeatures/devtools/panel'),
+    // inject: resolve('./extFeatures/content/inject'),
   },
   output: {
     path: path.join(__dirname, '..', 'build'),
@@ -90,12 +90,12 @@ module.exports = {
     ]
   },
   plugins: [
-    htmlPage('home', 'app', ['tab']),
+    // htmlPage('home', 'app', ['tab']),
     htmlPage('popup', 'popup', ['popup']),
-    htmlPage('panel', 'panel', ['panel']),
-    htmlPage('devtools', 'devtools', ['devtools']),
-    htmlPage('options', 'options', ['options']),
-    htmlPage('background', 'background', ['background']),
+    // htmlPage('panel', 'panel', ['panel']),
+    // htmlPage('devtools', 'devtools', ['devtools']),
+    // htmlPage('options', 'options', ['options']),
+    // htmlPage('background', 'background', ['background']),
     new CopyWebpackPlugin([{ from: path.join(__dirname, '..', 'static') }]),
     new ChromeReloadPlugin({
       port: 9090,
