@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios              from 'axios';
+import { makeTransition } from '../utils';
 
 export default class Requester {
   constructor (key, url) {
@@ -35,6 +36,7 @@ export default class Requester {
       if (request.status === 401) {
         return false;
       }
+      setTimeout(makeTransition, 200);
       return request.data;
     } catch (e) {
       return false;

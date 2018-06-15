@@ -18,17 +18,35 @@ export default class Storage {
 
     this.set = this.set.bind(this);
     this.get = this.get.bind(this);
-    this.clear = this.clear.bind(this);
     this.remove = this.remove.bind(this);
+    this.setItem = this.setItem.bind(this);
+    this.getItem = this.getItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   get getInstance () {
     return this;
   }
 
-  set (data) {
+  getItem (key) {
+    return this.get(key);
+  }
+
+  setItem (key = {}, data) {
+    return this.set(key, data);
+  }
+
+  removeItem (key) {
+    return this.remove(key);
+  }
+
+  set (key, data) {
     return new Promise((resolve) => {
-      this.storage.set(data, () => {
+      if (!key) {
+        key = Object.keys(data)[0];
+      }
+      this.storage.set({[key]: data}, () => {
         resolve();
       });
     });
@@ -47,7 +65,7 @@ export default class Storage {
 
   remove (key) {
     return new Promise((resolve) => {
-      this.storage.set(key, () => {
+      this.storage.remove(key, () => {
         resolve();
       });
     });
