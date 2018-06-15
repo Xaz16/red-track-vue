@@ -41,7 +41,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 140px;
     }
 
     .logo__icon {
@@ -124,15 +123,10 @@
 
 <script>
   export default {
-    async beforeMount () {
-      const { user } = await window.storage.getInstance.get();
-
-      this.$data.allowNavigation = user && user.hasOwnProperty('id')
-    },
-    data () {
-      return {
-        allowNavigation: false
-      };
+    computed: {
+      allowNavigation: function () {
+        return this.$store.isLoggedIn;
+      }
     }
   };
 </script>
