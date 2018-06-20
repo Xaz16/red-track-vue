@@ -2,9 +2,9 @@ import axios              from 'axios';
 import { makeTransition } from '../utils';
 
 export default class Requester {
-  constructor (key, url) {
+  constructor (key, url, store) {
+    this.globalStore = store;
     this.createRedmineClient = this.createRedmineClient.bind(this);
-
     this.createRedmineClient(key, url);
   }
 
@@ -20,11 +20,7 @@ export default class Requester {
 
   async getUser () {
     try {
-      const request = await this.client.get('/users/current.json');
-      if (request.status === 401) {
-        return false;
-      }
-      return request.data;
+      return await this.makeRequest('/users/current.json');
     } catch (e) {
       return false;
     }
@@ -32,14 +28,19 @@ export default class Requester {
 
   async getAssignedTasks () {
     try {
-      const request = await this.client.get('/issues.json?assigned_to_id=me');
-      if (request.status === 401) {
-        return false;
-      }
-      setTimeout(makeTransition, 200);
-      return request.data;
+      return await this.makeRequest('/issues.json?assigned_to_id=me');
     } catch (e) {
       return false;
     }
+  }
+
+  async makeRequest (url) {
+    try {
+      const request = await this.client.get(url);
+      return request.data;
+    } catch (e) {
+      console.error(e.message);
+    }
+    setTimeout(makeTransition, 100);
   }
 }

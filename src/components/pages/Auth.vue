@@ -52,6 +52,7 @@
           return {url: this.$store.getters.url, key: this.$store.getters.key};
         },
         set: function (newVal) {
+          this.$data.model = newVal;
           return this.$store.commit('currentAuthData', newVal);
         }
       }

@@ -1,8 +1,14 @@
-import * as getters  from './getters';
+import * as getters   from './getters';
 import * as mutations from './mutations';
+import * as actions   from './actions';
 
 export const initialState = {
-  todos: [],
+  tasks: [],
+  globalAlert: {
+    show: false,
+    text: ''
+  },
+  timersClocks: [],
   auth: {
     valid: {
       url: '',
@@ -13,10 +19,12 @@ export const initialState = {
       key: ''
     }
   },
-  user: {}
+  user: {},
+  timers: []
 };
 
 export {
   getters,
+  actions,
   mutations
 };

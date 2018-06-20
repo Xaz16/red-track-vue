@@ -23,3 +23,11 @@ export const lastRoute = state => {
 };
 
 export const isLoggedIn = state => state.user && state.user.hasOwnProperty('id');
+
+export const tasks = state => state.tasks;
+
+export const globalAlert = state => state.globalAlert;
+
+export const timers = state => state.timers.filter(item => !item.complete);
+export const getCompletedTimers = state => state.timers.filter(item => item.complete);
+export const getAllTimers = state => state.timers;

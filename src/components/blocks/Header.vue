@@ -125,7 +125,7 @@
   export default {
     computed: {
       allowNavigation: function () {
-        return this.$store.isLoggedIn;
+        return this.$store.getters.isLoggedIn;
       }
     }
   };

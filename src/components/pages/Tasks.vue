@@ -13,9 +13,9 @@
 
 </style>
 <script>
-  import root         from '../layout/popup.vue';
-  import { Task }     from '../blocks/panels';
-  import { mapState } from 'vuex';
+  import root           from '../layout/popup.vue';
+  import { Task }       from '../blocks/panels';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
@@ -23,10 +23,13 @@
       Task
     },
     data () {
-      return {}
+      return {};
     },
-    computed: mapState([
-      'tasks'
-    ])
+    beforeMount () {
+      this.$store.dispatch('getTasks');
+    },
+    computed: {
+      ...mapGetters(['tasks'])
+    }
   };
 </script>

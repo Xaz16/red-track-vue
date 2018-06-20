@@ -7,7 +7,7 @@
                 </p>
                 <div class="task__links-wrap">
                     <span class="task__link link" v-on:click="openTask">Link</span>
-                    <span class="task__link link">Create timer</span>
+                    <span class="task__link link" v-on:click="createTimer">Create timer</span>
                 </div>
             </div>
             <div class="task__detail task__detail--wide">
@@ -33,20 +33,31 @@
     </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex';
+  import Timer          from '../../../Services/Timer';
+
   export default {
-    async beforeMount () {
-      const {url} = await window.storage.getInstance.get();
-      this.$data.url = url;
-    },
     data () {
-      return {
-        url: ''
-      };
+      return {};
     },
     methods: {
       openTask: function () {
         chrome.tabs.create({url: `${this.url}/issues/${this.task.id}`});
+      },
+      createTimer: function () {
+        const id = +((Math.random() * 10000).toFixed(0));
+        this.$store.commit('createTimer', {
+          issue: this.item,
+          id: id,
+          timer: new Timer(),
+          formattedTime: '00:00:00',
+          stopped: false,
+          complete: false
+        });
       }
+    },
+    computed: {
+      ...mapGetters(['url'])
     },
     props: ['item']
   };

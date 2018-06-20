@@ -1,26 +1,29 @@
 .timer {
 
+  .task__detail--wide {
+    max-width: 270px;
+  }
 }
 
 .timer__controls {
-	.btn {
-		width: 40px;
-	}
+  .btn {
+    width: 40px;
+  }
 }
 
 .timer__controls {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .timer__decrease-group,
 .timer__increase-group {
-	display: flex;
-	width: 260px;
+  display: flex;
+  width: 260px;
 
-	justify-content: space-between;
+  justify-content: space-between;
 }
 
 .timer__input {
-	width: 86px;
+  width: 86px;
 }

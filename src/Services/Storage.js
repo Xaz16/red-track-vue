@@ -29,7 +29,7 @@ export default class Storage {
     return this;
   }
 
-  getItem (key) {
+  async getItem (key) {
     return this.get(key);
   }
 

@@ -1,53 +1,49 @@
 <template>
-    <div class="panel" routing-animation>
+    <div class="panel timer" routing-animation>
         <div class="panel__head task">
             <div class="panel__task">
                 <p class="task__id">
-                    Task #{{item.id}}
+                    Task #{{item.issue.id}}
                 </p>
                 <div class="task__links-wrap">
                     <span class="task__link link" v-on:click="openTask">Link</span>
-                    <span v-if="isLog">Log</span>
-                    <span class="task__link link" v-else>Create timer</span>
-                </div>
-            </div>
-            <div v-if="isLog" class="timer">
-                <div class="large-timer">
-                    10:10
+                    <span class="task__link link">Log</span>
                 </div>
             </div>
             <div class="task__detail task__detail--wide">
                 <h2 class="task__detail-heading task-heading">
-                    {{item.subject}}
+                    {{item.issue.subject}}
                 </h2>
                 <div class="task__detail-info muted">
                     <span class="task__detail-item">
-                        Timers: 2
+                        {{item.issue.assigned_to.name}}
                     </span>
                     <span class="task__detail-item">
-                        Assignee: {{item.assigned_to.name}}
+                        {{item.issue.status.name}}
                     </span>
                     <span class="task__detail-item">
-                        Status: {{item.status.name}}
-                    </span>
-                    <span class="task__detail-item">
-                        Done: {{item.done_ratio}}%
+                        {{item.issue.done_ratio}}%
                     </span>
                 </div>
             </div>
             <div class="task__controls-wrap">
-                <div class="task__control">
-                    <img src="pause.svg" alt="">
+                <transition name="fade">
+                    <div class="task__control" v-if="!item.timer.stopped" v-on:click="pauseTimer">
+                        <img src="/pause.svg" alt="">
+                    </div>
+                    <div class="task__control" v-else v-on:click="runTimer">
+                        <img src="/play.svg" alt="">
+                    </div>
+                </transition>
+                <div class="task__control" v-on:click="completeTimer">
+                    <img src="/check.svg" alt="">
                 </div>
-                <div class="task__control">
-                    <img src="check.svg" alt="">
-                </div>
-                <div class="task__control">
-                    <img src="delete.svg" alt="">
+                <div class="task__control" v-on:click="deleteTimer">
+                    <img src="/delete.svg" alt="">
                 </div>
             </div>
-            <div class="task__timer large-timer">
-                01:00:00:00
+            <div v-timer="item" class="task__timer large-timer">
+                {{item.formattedTime}}
             </div>
         </div>
         <div class="panel__body" v-if="isBodyOpened">
@@ -61,10 +57,10 @@
                         <button type="button" class="btn btn--dark">-1m</button>
                     </div>
                     <validate tag="div">
-                        <input  v-bind:class="{ 'rt-input--invalid': formstate.time_count && (formstate.time_count.$invalid && formstate.$submitted)}"
-                                v-model="model.time_count"
-                                required
-                                type="number" class="timer__input rt-input" name="timer_count">
+                        <input v-bind:class="{ 'rt-input--invalid': formstate.time_count && (formstate.time_count.$invalid && formstate.$submitted)}"
+                               v-model="model.time_count"
+                               required
+                               type="number" class="timer__input rt-input" name="timer_count">
                     </validate>
                     <div class="timer__decrease-group">
                         <button type="button" class="btn btn--dark">+1m</button>
@@ -79,14 +75,11 @@
     </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
-    async beforeMount () {
-      const {url} = await window.storage.getInstance.get();
-      this.$data.url = url;
-    },
     data () {
       return {
-        url: '',
         isBodyOpened: false,
         formState: {},
         model: {
@@ -100,8 +93,23 @@
       },
       openTask: function () {
         chrome.tabs.create({url: `${this.url}/issues/${this.task.id}`});
+      },
+      deleteTimer: function () {
+        this.$store.commit('deleteTimer', {id: this.item.id});
+      },
+      completeTimer: function () {
+        this.$store.commit('completeTimer', {id: this.item.id});
+      },
+      pauseTimer: function () {
+        this.item.timer.pause();
+      },
+      runTimer: function () {
+        this.item.timer.start();
       }
     },
-    props: ['item']
+    props: ['item'],
+    computed: {
+      ...mapGetters(['url'])
+    }
   };
 </script>
